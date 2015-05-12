@@ -2,7 +2,7 @@ name := "spray-json-annotation"
 
 organization := "us.bleibinha"
 
-version := "0.4"
+version := "0.4.1"
 
 scalaVersion := "2.11.5"
 
