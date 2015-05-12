@@ -1,12 +1,12 @@
 name := "spray-json-annotation"
 
-organization := "us.bleibinha"
+organization := "io.github.morgaroth"
 
 version := "0.4.1"
 
-scalaVersion := "2.11.5"
+scalaVersion := "2.11.6"
 
-crossScalaVersions := Seq("2.10.4", "2.11.5")
+crossScalaVersions := Seq("2.10.5", "2.11.6")
 
 resolvers ++= Seq(
   Resolver.sonatypeRepo("releases"),
@@ -21,7 +21,7 @@ libraryDependencies ++= (
 )
 
 libraryDependencies ++= Seq(
-  "io.spray" %% "spray-json" % "1.3.1" % Test,
+  "io.spray" %% "spray-json" % "1.3.2" % Test,
   "org.specs2" %% "specs2" % "2.3.13" % Test
 )
 
@@ -44,33 +44,13 @@ scalacOptions := Seq(
 
 // publishing:
 
-aetherPublishSettings
-
-credentials += Credentials(Path.userHome / ".ivy2" / ".us-bleibinha-snapshots-credentials")
-
-credentials += Credentials(Path.userHome / ".ivy2" / ".us-bleibinha-releases-credentials")
-
-publishMavenStyle := true
+sonatypeSettings
 
 publishArtifact in Test := false
 
-publishTo := {
-  val archiva = "http://bleibinha.us/archiva/repository/"
-  if (version.value.trim.endsWith("SNAPSHOT"))
-    Some("snapshots" at archiva + "snapshots")
-  else
-    Some("releases"  at archiva + "releases")
-}
+pomExtra := githubPom(name.value,"Mateusz Jaje","Morgaroth")
 
-pomExtra :=
-  <scm>
-    <url>https://github.com/ExNexu/spray-json-annotation</url>
-    <connection>scm:git@github.com:ExNexu/spray-json-annotation.git</connection>
-  </scm>
-  <developers>
-    <developer>
-      <id>exnexu</id>
-      <name>Stefan Bleibinhaus</name>
-      <url>http://bleibinha.us</url>
-    </developer>
-  </developers>
+publishTo := publishRepoForVersion(version.value)
+
+// Do not include log4jdbc as a dependency.
+pomPostProcess := PackagingHelpers.removeTestOrSourceDependencies
