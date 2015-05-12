@@ -63,6 +63,7 @@ class jsonMacro(isStrict: Boolean) {
             ..$body
 
             import spray.json.DefaultJsonProtocol._
+            import spray.json._
             $format
           }
         """
@@ -71,6 +72,7 @@ class jsonMacro(isStrict: Boolean) {
         q"""
           object ${className.toTermName} {
             import spray.json.DefaultJsonProtocol._
+            import spray.json._
             $format
           }
         """
